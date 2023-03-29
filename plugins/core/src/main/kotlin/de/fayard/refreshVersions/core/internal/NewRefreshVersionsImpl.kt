@@ -5,10 +5,12 @@ import de.fayard.refreshVersions.core.DependencyVersionsFetcher
 import de.fayard.refreshVersions.core.FeatureFlag.GRADLE_UPDATES
 import de.fayard.refreshVersions.core.ModuleId
 import de.fayard.refreshVersions.core.Version
-import de.fayard.refreshVersions.core.extensions.gradle.*
 import de.fayard.refreshVersions.core.extensions.gradle.hasDynamicVersion
 import de.fayard.refreshVersions.core.extensions.gradle.isRootProject
+import de.fayard.refreshVersions.core.extensions.gradle.matches
+import de.fayard.refreshVersions.core.extensions.gradle.mavenModuleId
 import de.fayard.refreshVersions.core.extensions.gradle.npmModuleId
+import de.fayard.refreshVersions.core.extensions.gradle.tryExtractingSimpleVersion
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -93,6 +95,7 @@ internal suspend fun lookupVersionCandidates(
                 managedDependencies.add(dependency to versionManagementKind)
                 true
             }
+
             VersionManagementKind.NoMatch -> {
                 if (dependency.version != null) {
                     // null version means it's expected to be added by a BoM or a plugin, so we ignore them.
@@ -129,6 +132,7 @@ internal suspend fun lookupVersionCandidates(
                         matches -> it.versionConstraint.tryExtractingSimpleVersion()?.let { rawVersion ->
                             Version(rawVersion)
                         }
+
                         else -> null
                     }
                 }.minOrNull()
@@ -137,6 +141,7 @@ internal suspend fun lookupVersionCandidates(
                     currentVersion = lowestUsedVersion,
                     resultMode = resultMode
                 )
+
                 DependencyWithVersionCandidates(
                     moduleId = moduleId,
                     currentVersion = lowestUsedVersion.value,

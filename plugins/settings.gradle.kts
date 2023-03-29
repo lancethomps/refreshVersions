@@ -15,7 +15,7 @@ val pluginsVersion: String = file("version.txt").bufferedReader().use { it.readL
 
 gradle.beforeProject {
     version = pluginsVersion
-    group = "de.fayard.refreshVersions"
+    group = "com.upstart.refreshVersions"
     loadLocalProperties()
 }
 

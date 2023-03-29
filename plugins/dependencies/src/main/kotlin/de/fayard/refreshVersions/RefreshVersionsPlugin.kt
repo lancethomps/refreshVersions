@@ -1,17 +1,26 @@
 package de.fayard.refreshVersions
 
-import de.fayard.refreshVersions.core.*
+import de.fayard.refreshVersions.core.FeatureFlag
+import de.fayard.refreshVersions.core.ModuleId
+import de.fayard.refreshVersions.core.RefreshVersionsCorePlugin
+import de.fayard.refreshVersions.core.bootstrapRefreshVersionsCore
+import de.fayard.refreshVersions.core.bootstrapRefreshVersionsCoreForBuildSrc
+import de.fayard.refreshVersions.core.checkGradleVersionIsSupported
 import de.fayard.refreshVersions.core.extensions.gradle.isBuildSrc
 import de.fayard.refreshVersions.core.internal.removals_replacement.RemovedDependencyNotationsReplacementInfo
 import de.fayard.refreshVersions.core.internal.skipConfigurationCache
 import de.fayard.refreshVersions.internal.getArtifactNameToConstantMapping
+import java.io.InputStream
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.initialization.Settings
 import org.gradle.api.invocation.Gradle
-import org.gradle.kotlin.dsl.*
-import java.io.InputStream
+import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.register
 
 open class RefreshVersionsPlugin : Plugin<Any> {
 
@@ -68,6 +77,7 @@ open class RefreshVersionsPlugin : Plugin<Any> {
                     target.rootProject -> ", not in build.gradle(.kts)"
                     else -> ", not in a build.gradle(.kts) file."
                 }
+
                 is Gradle -> ", not in an initialization script."
                 else -> ""
             }
@@ -136,7 +146,8 @@ open class RefreshVersionsPlugin : Plugin<Any> {
                 getDependenciesMapping = ::getArtifactNameToConstantMapping,
                 getRemovedDependenciesVersionsKeys = ::getRemovedDependenciesVersionsKeys,
                 getRemovedDependencyNotationsReplacementInfo = ::getRemovedDependencyNotationsReplacementInfo,
-                versionRejectionFilter = extension.versionRejectionFilter
+                versionRejectionFilter = extension.versionRejectionFilter,
+                versionAutoUpdates = extension.versionAutoUpdates,
             )
             if (extension.isBuildSrcLibsEnabled) gradle.beforeProject {
                 if (project != project.rootProject) return@beforeProject

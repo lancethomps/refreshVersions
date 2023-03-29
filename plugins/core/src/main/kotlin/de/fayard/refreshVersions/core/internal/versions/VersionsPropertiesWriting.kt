@@ -11,8 +11,8 @@ import de.fayard.refreshVersions.core.internal.versions.VersionsPropertiesModel.
 import de.fayard.refreshVersions.core.internal.versions.VersionsPropertiesModel.Companion.isUsingVersionRejectionHeader
 import de.fayard.refreshVersions.core.internal.versions.VersionsPropertiesModel.Section.Comment
 import de.fayard.refreshVersions.core.internal.versions.VersionsPropertiesModel.Section.VersionEntry
-import org.gradle.api.artifacts.Dependency
 import java.io.File
+import org.gradle.api.artifacts.Dependency
 
 internal fun VersionsPropertiesModel.Companion.writeWithNewEntries(newEntries: Map<String, Dependency>) {
     update { model ->
@@ -44,9 +44,18 @@ internal fun VersionsPropertiesModel.Companion.writeWithNewVersions(
                         if (section.currentVersion.isAVersionAlias()) return@map section
                         when (val data = candidatesMap[section.key]) {
                             null -> section.asUnused(isUnused = true)
-                            else -> section.copy(
-                                availableUpdates = data.versionsCandidates(Version(section.currentVersion)).map { it.value },
-                            ).asUnused(isUnused = false).withFailures(data.failures)
+                            else -> {
+                                val updates = data.versionsCandidates(Version(section.currentVersion)).map { it.value }
+                                if (updates.isNotEmpty() && RefreshVersionsConfigHolder.versionAutoUpdates.any { it.matches(section.key) }) {
+                                    section.copy(
+                                        currentVersion = updates.last(),
+                                    ).asUnused(isUnused = false).withFailures(data.failures)
+                                } else {
+                                    section.copy(
+                                        availableUpdates = updates,
+                                    ).asUnused(isUnused = false).withFailures(data.failures)
+                                }
+                            }
                         }
                     }
                 }
@@ -77,6 +86,7 @@ private fun VersionEntry.withFailures(failures: List<DependencyVersionsFetcher.R
             hasExistingFailureComments -> commentsList.filterNot { commentLine ->
                 commentLine.startsWith(VersionsPropertiesModel.failureComment)
             }
+
             else -> commentsList
         }
     }

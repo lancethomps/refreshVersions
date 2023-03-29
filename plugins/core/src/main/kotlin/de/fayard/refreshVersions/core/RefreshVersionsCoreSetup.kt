@@ -6,6 +6,7 @@ import de.fayard.refreshVersions.core.extensions.gradle.isBuildSrc
 import de.fayard.refreshVersions.core.internal.*
 import de.fayard.refreshVersions.core.internal.migrations.runMigrationsIfNeeded
 import de.fayard.refreshVersions.core.internal.removals_replacement.RemovedDependencyNotationsReplacementInfo
+import java.io.File
 import org.gradle.api.artifacts.ExternalDependency
 import org.gradle.api.file.RegularFile
 import org.gradle.api.initialization.Settings
@@ -13,7 +14,6 @@ import org.gradle.api.internal.artifacts.dependencies.DefaultClientModule
 import org.gradle.kotlin.dsl.apply
 import org.gradle.tooling.UnsupportedVersionException
 import org.gradle.util.GradleVersion
-import java.io.File
 
 /**
  * Boostrap refreshVersions-core **only** (excludes dependencies constants and version key rules).
@@ -49,7 +49,8 @@ fun Settings.bootstrapRefreshVersionsCore(
     getDependenciesMapping: () -> List<DependencyMapping> = { emptyList() },
     getRemovedDependenciesVersionsKeys: () -> Map<ModuleId.Maven, String> = { emptyMap() },
     getRemovedDependencyNotationsReplacementInfo: (() -> RemovedDependencyNotationsReplacementInfo)? = null,
-    versionRejectionFilter: (DependencySelection.() -> Boolean)? = null
+    versionRejectionFilter: (DependencySelection.() -> Boolean)? = null,
+    versionAutoUpdates: Set<Regex> = emptySet(),
 ) {
     null.checkGradleVersionIsSupported()
     require(settings.isBuildSrc.not()) {
@@ -72,7 +73,8 @@ fun Settings.bootstrapRefreshVersionsCore(
         artifactVersionKeyRules = artifactVersionKeyRules,
         getRemovedDependenciesVersionsKeys = getRemovedDependenciesVersionsKeys,
         versionsPropertiesFile = versionsPropertiesFile,
-        versionRejectionFilter = versionRejectionFilter
+        versionRejectionFilter = versionRejectionFilter,
+        versionAutoUpdates = versionAutoUpdates,
     )
     val versionsPropertiesModel = RefreshVersionsConfigHolder.readVersionsPropertiesModel()
     getRemovedDependencyNotationsReplacementInfo?.let {
@@ -219,6 +221,7 @@ private fun setupPluginsVersionsResolution(
                     )
                     useModule(dependencyNotation)
                 }
+
                 else -> {
                     UsedPluginsTracker.noteUsedPluginDependency(
                         settings = settings,

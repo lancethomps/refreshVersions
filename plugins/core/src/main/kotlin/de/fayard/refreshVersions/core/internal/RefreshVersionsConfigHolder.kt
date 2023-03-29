@@ -7,13 +7,13 @@ import de.fayard.refreshVersions.core.extensions.gradle.isRootProject
 import de.fayard.refreshVersions.core.internal.versions.VersionsPropertiesModel
 import de.fayard.refreshVersions.core.internal.versions.VersionsPropertiesModel.Section.VersionEntry
 import de.fayard.refreshVersions.core.internal.versions.readFromFile
+import java.io.File
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.gradle.api.Project
 import org.gradle.api.initialization.Settings
-import java.io.File
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
 
 @InternalRefreshVersionsApi
 object RefreshVersionsConfigHolder {
@@ -30,6 +30,9 @@ object RefreshVersionsConfigHolder {
         private set
 
     var versionsPropertiesFile: File by resettableDelegates.LateInit()
+        private set
+
+    var versionAutoUpdates: Set<Regex> by resettableDelegates.LateInit()
         private set
 
     val buildSrc: Project? get() = buildSrcSettings?.gradle?.rootProject
@@ -89,7 +92,8 @@ object RefreshVersionsConfigHolder {
         artifactVersionKeyRules: List<String>,
         getRemovedDependenciesVersionsKeys: () -> Map<ModuleId.Maven, String>,
         versionsPropertiesFile: File,
-        versionRejectionFilter: (DependencySelection.() -> Boolean)?
+        versionRejectionFilter: (DependencySelection.() -> Boolean)?,
+        versionAutoUpdates: Set<Regex>,
     ) {
         require(settings.isBuildSrc.not())
         resettableDelegates.reset()
@@ -100,6 +104,7 @@ object RefreshVersionsConfigHolder {
         }
         this.versionRejectionFilter = versionRejectionFilter
         this.artifactVersionKeyRules = artifactVersionKeyRules
+        this.versionAutoUpdates = versionAutoUpdates
         versionKeyReader = ArtifactVersionKeyReader.fromRules(
             filesContent = artifactVersionKeyRules,
             getRemovedDependenciesVersionsKeys = getRemovedDependenciesVersionsKeys
