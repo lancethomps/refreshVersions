@@ -13,7 +13,7 @@ plugins {
 gradlePlugin {
     plugins {
         create("refreshVersions-core") {
-            id = "de.fayard.refreshVersions-core"
+            id = "com.upstart.refreshVersions-core"
             displayName = "./gradlew refreshVersions"
             description = "Painless dependencies management"
             implementationClass = "de.fayard.refreshVersions.core.RefreshVersionsCorePlugin"

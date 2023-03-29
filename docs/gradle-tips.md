@@ -83,7 +83,7 @@ buildscript {
 }
 
 plugins { // Optional
-    id("de.fayard.refreshVersions") version "0.10.0"
+    id("com.upstart.refreshVersions") version "0.10.0"
     // other plugins like the Gradle Entreprise plugin go here
 }
 

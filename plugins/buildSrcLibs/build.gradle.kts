@@ -11,7 +11,7 @@ plugins {
 gradlePlugin {
     plugins {
         create("buildSrcLibs") {
-            id = "de.fayard.buildSrcLibs"
+            id = "com.upstart.buildSrcLibs"
             displayName = "Dependency notation generator & updates"
             description = "Generates dependency notations constants in buildSrc and " +
                     "updates the versions with gradle refreshVersions"

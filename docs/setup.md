@@ -51,14 +51,14 @@ Here is how to configure gradle refreshVersions:
     ```kotlin
     plugins {
         // See https://jmfayard.github.io/refreshVersions
-        id("de.fayard.refreshVersions") version "{{version.refreshVersions}}"
+        id("com.upstart.refreshVersions") version "{{version.refreshVersions}}"
     }
     ```
 === "settings.gradle"
     ```groovy
     plugins {
         // See https://jmfayard.github.io/refreshVersions
-        id 'de.fayard.refreshVersions' version '{{version.refreshVersions}}'
+        id 'com.upstart.refreshVersions' version '{{version.refreshVersions}}'
     }
     ```
 
@@ -74,12 +74,12 @@ If you use the **buildSrc** module and have dependencies declared in the `buildS
             gradlePluginPortal()
         }
         plugins {
-            id("de.fayard.refreshVersions") version "{{version.refreshVersions}}"
+            id("com.upstart.refreshVersions") version "{{version.refreshVersions}}"
         }
     }
 
     plugins {
-        id("de.fayard.refreshVersions")
+        id("com.upstart.refreshVersions")
     }
     ```
 === "buildSrc/settings.gradle"
@@ -89,12 +89,12 @@ If you use the **buildSrc** module and have dependencies declared in the `buildS
             gradlePluginPortal()
         }
         plugins {
-            id 'de.fayard.refreshVersions' version '{{version.refreshVersions}}'
+            id 'com.upstart.refreshVersions' version '{{version.refreshVersions}}'
         }
     }
 
     plugins {
-        id 'de.fayard.refreshVersions'
+        id 'com.upstart.refreshVersions'
     }
     ```
 
@@ -111,12 +111,12 @@ A workaround is to configure the plugin in the `buildSrc` module (create the dir
             gradlePluginPortal()
         }
         plugins {
-            id 'de.fayard.refreshVersions' version '{{version.refreshVersions}}'
+            id 'com.upstart.refreshVersions' version '{{version.refreshVersions}}'
         }
     }
 
     plugins {
-        id 'de.fayard.refreshVersions'
+        id 'com.upstart.refreshVersions'
     }
     ```
 
@@ -139,7 +139,7 @@ If you need/want this feature, please vote with a 👍 on [this issue]({{link.is
     }
     plugins {
         // See https://jmfayard.github.io/refreshVersions
-        id("de.fayard.refreshVersions") version "{{version.snapshot}}"
+        id("com.upstart.refreshVersions") version "{{version.snapshot}}"
     }
     ```
 === "settings.gradle"
@@ -152,7 +152,7 @@ If you need/want this feature, please vote with a 👍 on [this issue]({{link.is
     }
     plugins {
         // See https://jmfayard.github.io/refreshVersions
-        id 'de.fayard.refreshVersions' version '{{version.snapshot}}'
+        id 'com.upstart.refreshVersions' version '{{version.snapshot}}'
     }
     ```
 
@@ -193,7 +193,7 @@ Then, enable `buildSrcLibs` as such:
     ```kotlin
     plugins {
         // See https://jmfayard.github.io/refreshVersions
-        id("de.fayard.refreshVersions") version "{{version.refreshVersions}}"
+        id("com.upstart.refreshVersions") version "{{version.refreshVersions}}"
     }
 
     refreshVersions {
@@ -204,7 +204,7 @@ Then, enable `buildSrcLibs` as such:
     ```groovy
     plugins {
         // See https://jmfayard.github.io/refreshVersions
-        id 'de.fayard.refreshVersions' version '{{version.refreshVersions}}'
+        id 'com.upstart.refreshVersions' version '{{version.refreshVersions}}'
     }
 
     refreshVersions {

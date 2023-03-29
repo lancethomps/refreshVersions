@@ -16,7 +16,7 @@ pluginManagement {
     @Suppress("UnstableApiUsage")
     plugins /**/ {
         // Hey, I'm user comment 1
-        id("de.fayard.refreshVersions").version(pluginsVersion)
+        id("com.upstart.refreshVersions").version(pluginsVersion)
         /*
         /*
         I'm big comment 2
@@ -42,7 +42,7 @@ plugins {
     // Hey, I'm user comment 8
     id("com.example.two") version "0.4"
     // Hey, I'm user comment 9
-    id("de.fayard.refreshVersions")
+    id("com.upstart.refreshVersions")
     // Hey, I'm user comment 10
 }
 // Hey, I'm user comment 11

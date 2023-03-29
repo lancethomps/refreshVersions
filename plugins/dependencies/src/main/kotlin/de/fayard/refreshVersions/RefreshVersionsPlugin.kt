@@ -82,7 +82,7 @@ open class RefreshVersionsPlugin : Plugin<Any> {
                 else -> ""
             }
             """
-            plugins.id("de.fayard.refreshVersions") must be configured in settings.gradle(.kts)$notInExtraClause.
+            plugins.id("com.upstart.refreshVersions") must be configured in settings.gradle(.kts)$notInExtraClause.
             See https://jmfayard.github.io/refreshVersions/setup/
             """.trimIndent()
         }
@@ -156,13 +156,13 @@ open class RefreshVersionsPlugin : Plugin<Any> {
 
                 buildscript.repositories.addAll(settings.pluginManagement.repositories)
                 val dependencyNotation = plugin(
-                    id = "de.fayard.buildSrcLibs",
+                    id = "com.upstart.buildSrcLibs",
                     version = RefreshVersionsCorePlugin.currentVersion
                 )
                 buildscript.dependencies.add("classpath", dependencyNotation)
 
                 afterEvaluate {
-                    apply(plugin = "de.fayard.buildSrcLibs")
+                    apply(plugin = "com.upstart.buildSrcLibs")
                 }
             }
             gradle.rootProject {
@@ -216,7 +216,7 @@ open class RefreshVersionsPlugin : Plugin<Any> {
                 }
 
                 dependencies {
-                    "implementation"(plugin("de.fayard.refreshVersions", RefreshVersionsCorePlugin.currentVersion))
+                    "implementation"(plugin("com.upstart.refreshVersions", RefreshVersionsCorePlugin.currentVersion))
                 }
             }
         }

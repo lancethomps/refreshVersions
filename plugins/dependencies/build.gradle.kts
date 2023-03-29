@@ -13,7 +13,7 @@ plugins {
 gradlePlugin {
     plugins {
         create("refreshVersions") {
-            id = "de.fayard.refreshVersions"
+            id = "com.upstart.refreshVersions"
             displayName = "Typesafe Gradle Dependencies"
             description = "Common Gradle dependencies - See gradle refreshVersions"
             implementationClass = "de.fayard.refreshVersions.RefreshVersionsPlugin"

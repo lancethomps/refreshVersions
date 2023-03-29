@@ -8,14 +8,14 @@ pluginManagement {
     final File versionFile = new File(rootDir.parentFile, "plugins/version.txt")
     final String pluginsVersion = versionFile.readLines().first()
     plugins {
-        id("de.fayard.refreshVersions").version(pluginsVersion)
+        id("com.upstart.refreshVersions").version(pluginsVersion)
     }
 }
 
 plugins {
     id("com.gradle.enterprise").version("3.10.2")
 ////                        # available:"3.10.3")
-    id 'de.fayard.refreshVersions'
+    id 'com.upstart.refreshVersions'
 }
 
 dependencyResolutionManagement {

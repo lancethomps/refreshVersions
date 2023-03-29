@@ -11,7 +11,7 @@ pluginManagement {
 
     @Suppress("UnstableApiUsage")
     plugins {
-        id("de.fayard.refreshVersions").version(pluginsVersion)
+        id("com.upstart.refreshVersions").version(pluginsVersion)
         id("com.example.zero").version("1.0.0")
 ////                       # available:"1.0.1")
     }
@@ -22,7 +22,7 @@ plugins {
 ////                  # available:"0.1.1"
     id("com.example.two") version "1.2.0-beta02"
 ////                  # available:"1.2.0-beta03"
-    id("de.fayard.refreshVersions")
+    id("com.upstart.refreshVersions")
 }
 
 rootProject.name = "Whatever"

@@ -1,5 +1,5 @@
 
-The ancestor of the *plugin* `id("de.fayard.refreshVersions")` was a *plugin* called `id("de.fayard.buildSrcVersions")`. It took advantage of the IDE integration with the buildSrc module in Gradle.
+The ancestor of the *plugin* `id("com.upstart.refreshVersions")` was a *plugin* called `id("de.fayard.buildSrcVersions")`. It took advantage of the IDE integration with the buildSrc module in Gradle.
 
 The idea still makes sense for example to have better IDE support for Groovy, and in that case you can **enable it** and use the **task** ~~buildSrcVersions~~ **buildSrcLibs**.
 

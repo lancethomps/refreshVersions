@@ -11,13 +11,13 @@ pluginManagement {
 
     @Suppress("UnstableApiUsage")
     plugins {
-        id("de.fayard.refreshVersions").version(pluginsVersion)
+        id("com.upstart.refreshVersions").version(pluginsVersion)
     }
 }
 
 plugins {
     id("com.gradle.enterprise").version("3.8")
-    id("de.fayard.refreshVersions")
+    id("com.upstart.refreshVersions")
 }
 
 gradleEnterprise {

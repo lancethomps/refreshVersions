@@ -9,10 +9,10 @@ pluginManagement {
 
     @Suppress("UnstableApiUsage")
     plugins {
-        id("de.fayard.refreshVersions").version(pluginsVersion)
+        id("com.upstart.refreshVersions").version(pluginsVersion)
     }
 }
 
 plugins {
-    id("de.fayard.refreshVersions")
+    id("com.upstart.refreshVersions")
 }

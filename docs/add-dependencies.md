@@ -130,7 +130,7 @@ To use it, you need to enable it:
     ```kotlin
     plugins {
         // See https://jmfayard.github.io/refreshVersions
-        id("de.fayard.refreshVersions") version "{{version.refreshVersions}}"
+        id("com.upstart.refreshVersions") version "{{version.refreshVersions}}"
     }
 
     refreshVersions {
@@ -141,7 +141,7 @@ To use it, you need to enable it:
     ```groovy
     plugins {
         // See https://jmfayard.github.io/refreshVersions
-        id 'de.fayard.refreshVersions' version '{{version.refreshVersions}}'
+        id 'com.upstart.refreshVersions' version '{{version.refreshVersions}}'
     }
 
     refreshVersions {

@@ -142,7 +142,7 @@ fun @Suppress("unused") Nothing?.checkGradleVersionIsSupported() {
     if (GradleVersion.current() < minimumGradleVersion) {
         throw UnsupportedVersionException(
             """
-            The plugin "de.fayard.refreshVersions" only works with Gradle $minimumGradleVersionString and above.
+            The plugin "com.upstart.refreshVersions" only works with Gradle $minimumGradleVersionString and above.
             See https://jmfayard.github.io/refreshVersions/setup/#update-gradle-if-needed
             """.trimIndent()
         )
@@ -188,7 +188,7 @@ private fun setupPluginsVersionsResolution(
     settings.pluginManagement {
         resolutionStrategy.eachPlugin {
             val pluginId = requested.id.id
-            if (pluginId == "de.fayard.refreshVersions") {
+            if (pluginId == "com.upstart.refreshVersions") {
                 return@eachPlugin // Already in the buildscript with a defined version that will be used.
             }
             val pluginNamespace = requested.id.namespace ?: ""
